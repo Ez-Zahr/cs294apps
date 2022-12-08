@@ -1,3 +1,5 @@
+/* Setup */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -25,20 +27,10 @@ main {
   align-items: center;
 }
 
+/* Screen 1 */
+
 #screen1 {
   background-color: silver;
-}
-
-#screen2 {
-  background-color: #d2afed;
-}
-
-#screen3 {
-  background-color: #afedc8;
-}
-
-#screen4 {
-  background-color: #edafaf;
 }
 
 #screen1 img {
@@ -53,6 +45,12 @@ main {
 #screen1 .mdc-list-item__text {
   padding: 8px;
   margin: auto 0;
+}
+
+/* Screen 2 */
+
+#screen2 {
+  background-color: #d2afed;
 }
 
 #screen2 img {
@@ -70,4 +68,22 @@ main {
 
 #screen2 .mdc-list-divider {
   margin: 4px 0;
+}
+
+/* Screen 3 */
+
+#screen3 {
+  background-color: #afedc8;
+}
+
+#map {
+  height: 400px;
+  width: 800px;
+  margin: auto;
+}
+
+/* Screen 4 */
+
+#screen4 {
+  background-color: #edafaf;
 }
