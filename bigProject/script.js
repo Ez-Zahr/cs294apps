@@ -9,6 +9,10 @@
 //     });
 // }
 
+const listEl = document.querySelector("#screen2 .mdc-list");
+const listItemEl = listEl.querySelector("#template");
+const listDivEl = listEl.querySelector(".mdc-list-divider");
+
 function getArticles() {
   const apiKey = "MSAn7QDBsAGxXe29NG7881zylY1ANOfc";
   const apiUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${apiKey}`;
@@ -19,9 +23,16 @@ function getArticles() {
       if (resp.ok) return resp.json();
       throw (`${resp.status}: ${resp.statusText}`);
     }).then(data => {
-      console.log(data);
+      listEl.innerHTML = "";
       data.response.docs.forEach(article => {
-        // TODO
+        newItem = listItemEl.cloneNode(true);
+        newItem.querySelector("img").src = "https://www.nytimes.com/" + article.multimedia[0].url;
+        newItem.querySelector(".mdc-list-item__primary-text").innerText = article.headline.main;
+        newItem.querySelector(".mdc-list-item__secondary-text").innerText = article.abstract;
+        newItem.querySelector("a").href = article.web_url;
+        newItem.querySelector("a").innerText = article.web_url;
+        listEl.append(newItem);
+        listEl.append(listDivEl.cloneNode());
       });
     }).catch(err => console.log(err));
 }
@@ -49,6 +60,12 @@ function switchScreen(dest) {
   curScreen = dest;
   document.querySelector("#" + curScreen).style.display = "flex";
   navBtn.innerText = (curScreen === "screen1") ? "menu" : "arrow_back";
+  switch (curScreen) {
+    case "screen1": break;
+    case "screen2": getArticles(); break;
+    case "screen3": getCrashes(); break;
+    case "screen4": break;
+  }
 }
 
 let curScreen = "screen1";
