@@ -8,16 +8,59 @@
   <title>Big Project</title>
   <link href="./style.css" rel="stylesheet" />
   <link href="./manifest.json" rel="manifest" />
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
 
 <body>
-  <div id="screen1" class="screen">
-    <button id="btn1">Button</button>
-  </div>
-  <div id="screen2" class="screen"></div>
-  <div id="screen3" class="screen"></div>
-  <div id="screen4" class="screen"></div>
-  
+  <header class="mdc-top-app-bar">
+    <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <button id="nav-btn" class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
+          aria-label="Open navigation menu">menu</button>
+        <span class="mdc-top-app-bar__title">Big Project</span>
+      </section>
+    </div>
+  </header>
+
+  <main class="mdc-top-app-bar--fixed-adjust">
+    <div id="screen1" class="screen">
+      <ul class="mdc-list mdc-list--two-line">
+        <li class="mdc-list-item" tabindex="0">
+          <img src="./images/nyt.png" alt="new york times">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text">News</span>
+            <span class="mdc-list-item__secondary-text">News on Chicago from the NYT</span>
+          </span>
+        </li>
+        <li role="separator" class="mdc-list-divider"></li>
+        <li class="mdc-list-item">
+          <img src="./images/crash.png" alt="car crash">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text">Crash Reports</span>
+            <span class="mdc-list-item__secondary-text">Chicago crash reports displayed on a map</span>
+          </span>
+        </li>
+        <li role="separator" class="mdc-list-divider"></li>
+        <li class="mdc-list-item">
+          <img src="./images/notes.png" alt="notes">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text">Notes</span>
+            <span class="mdc-list-item__secondary-text">Tool for creating and storing notes</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div id="screen2" class="screen"></div>
+    <div id="screen3" class="screen"></div>
+    <div id="screen4" class="screen"></div>
+  </main>
   <script src="./script.js"></script>
 </body>
 

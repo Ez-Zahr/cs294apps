@@ -9,7 +9,7 @@
   "start_url": "/bigProject/",
   "icons": [
     {
-      "src": "./cat.png",
+      "src": "./images/cat.png",
       "sizes": "512x512",
       "type": "image/png"
     }

@@ -1,16 +1,22 @@
 html, body {
+  margin: 0;
+  padding: 0;
   height: 100%;
   width: 100%;
+  font-family: Roboto, sans-serif;
 }
 
 .screen {
   width: 100vw;
-  height: 100vh;
+  height: 91.3vh;
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #screen1 {
-  background-color: red;
+  background-color: silver;
 }
 
 #screen2 {
@@ -23,4 +29,18 @@ html, body {
 
 #screen4 {
   background-color: yellow;
+}
+
+#screen1 img {
+  width: 200px;
+  height: 200px;
+}
+
+#screen1 .mdc-list-divider {
+  margin: 4px 0;
+}
+
+#screen1 .mdc-list-item__text {
+  padding: 8px;
+  margin: auto 0;
 }
