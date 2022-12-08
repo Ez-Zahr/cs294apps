@@ -11,11 +11,18 @@
 
 /// Setup
 
+const bgColors = {
+  "screen1": "silver",
+  "screen2": "#d2afed",
+  "screen3": "#afedc8",
+  "screen4": "#edafaf",
+};
 const navBtn = document.querySelector("#nav-btn");
 
 function switchScreen(dest) {
   document.querySelector("#" + curScreen).style.display = "none";
   curScreen = dest;
+  document.body.style.backgroundColor = bgColors[curScreen];
   document.querySelector("#" + curScreen).style.display = "flex";
   navBtn.innerText = (curScreen === "screen1") ? "menu" : "arrow_back";
   switch (curScreen) {
@@ -27,6 +34,7 @@ function switchScreen(dest) {
 }
 
 let curScreen = "screen1";
+document.body.style.backgroundColor = bgColors[curScreen];
 document.querySelector("#" + curScreen).style.display = "flex";
 
 const topAppBarEl = document.querySelector('.mdc-top-app-bar');
@@ -35,14 +43,12 @@ topAppBarEl.addEventListener("MDCTopAppBar:nav", () => {
   if (curScreen !== "screen1") switchScreen("screen1");
 });
 
-document.querySelectorAll('.mdc-list').forEach(listElem => {
-  const list = new mdc.list.MDCList(listElem);
-  list.listElements.map((listItemEl) => new mdc.ripple.MDCRipple(listItemEl));
-});
-
 /// Screen 1
 
-document.querySelector("#screen1 .mdc-list").addEventListener("MDCList:action", (e) => {
+const homeListEl = document.querySelector('#screen1 .mdc-list');
+new mdc.list.MDCList(homeListEl);
+
+homeListEl.addEventListener("MDCList:action", (e) => {
   switch (e.detail.index) {
     case 0:
       switchScreen("screen2");
@@ -58,9 +64,10 @@ document.querySelector("#screen1 .mdc-list").addEventListener("MDCList:action", 
 
 /// Screen 2
 
-const listEl = document.querySelector("#screen2 .mdc-list");
-const listItemEl = listEl.querySelector("#template");
-const listDivEl = listEl.querySelector(".mdc-list-divider");
+const articlesListEl = document.querySelector("#screen2 .mdc-list");
+new mdc.list.MDCList(articlesListEl);
+const articlesListItemEl = articlesListEl.querySelector(".mdc-list-item");
+const articlesListDivEl = articlesListEl.querySelector(".mdc-list-divider");
 
 function getArticles() {
   const apiKey = "MSAn7QDBsAGxXe29NG7881zylY1ANOfc";
@@ -72,16 +79,16 @@ function getArticles() {
       if (resp.ok) return resp.json();
       throw (`${resp.status}: ${resp.statusText}`);
     }).then(data => {
-      listEl.innerHTML = "";
+      articlesListEl.innerHTML = "";
       data.response.docs.forEach(article => {
-        newItem = listItemEl.cloneNode(true);
+        newItem = articlesListItemEl.cloneNode(true);
         newItem.querySelector("img").src = "https://www.nytimes.com/" + article.multimedia[0].url;
         newItem.querySelector(".mdc-list-item__primary-text").innerText = article.headline.main;
         newItem.querySelector(".mdc-list-item__secondary-text").innerText = article.abstract;
         newItem.querySelector("a").href = article.web_url;
         newItem.querySelector("a").innerText = article.web_url;
-        listEl.append(newItem);
-        listEl.append(listDivEl.cloneNode());
+        articlesListEl.append(newItem);
+        articlesListEl.append(articlesListDivEl.cloneNode());
       });
     }).catch(err => console.log(err));
 }
@@ -116,7 +123,7 @@ function initMap() {
       const coord = { lat: location.coords.latitude, lng: location.coords.longitude };
 
       map = new google.maps.Map(document.querySelector("#map"), {
-        zoom: 10,
+        zoom: 12,
         center: coord,
       });
 
@@ -151,3 +158,70 @@ function addMarker(coord) {
 
 /// Screen 4
 
+const db = new Dexie("NotesDB");
+
+db.version(1).stores({
+  notes: "subject"
+});
+
+const noteSubject = new mdc.textField.MDCTextField(document.querySelector('#note-subject'));
+const noteBody = new mdc.textField.MDCTextField(document.querySelector('#note-body'));
+const notesListEl = document.querySelector("#screen4 .mdc-list");
+const notesList = new mdc.list.MDCList(notesListEl);
+const notesListItemEl = notesListEl.querySelector(".mdc-list-item");
+const notesListDivEl = notesListEl.querySelector(".mdc-list-divider");
+
+function showNotes(notes) {
+  notesListEl.innerHTML = '';
+  notes.forEach((note) => {
+    const noteElem = notesListItemEl.cloneNode(true);
+    noteElem.querySelector(".mdc-list-item__primary-text").innerText = note.subject;
+    noteElem.querySelector(".mdc-list-item__secondary-text").innerText = note.body;
+    notesListEl.append(noteElem);
+    notesListEl.append(notesListDivEl.cloneNode());
+  });
+}
+
+function getNotes() {
+  db.notes.toArray().then((notes) => {
+    showNotes(notes);
+  });
+}
+
+function updateNote(subject, body) {
+  db.notes.put({ subject, body })
+    .then(() => getNotes())
+    .catch(err => alert(err));
+}
+
+function deleteNote(subject) {
+  db.notes.delete(subject)
+    .then(() => {
+      noteSubject.value = "";
+      noteBody.value = "";
+      getNotes();
+    })
+    .catch(err => alert(err));
+}
+
+document.querySelector("#save-btn").addEventListener("click", () => {
+  if (noteSubject.value && noteBody.value) {
+    updateNote(noteSubject.value, noteBody.value);
+  }
+});
+
+document.querySelector("#delete-btn").addEventListener("click", () => {
+  if (noteSubject.value) {
+    deleteNote(noteSubject.value);
+  }
+});
+
+notesListEl.addEventListener("MDCList:action", (e) => {
+  const sub = notesList.listElements[e.detail.index].querySelector(".mdc-list-item__primary-text").innerText;
+  db.notes.get(sub).then(note => {
+    noteSubject.value = sub;
+    noteBody.value = note.body;
+  });
+});
+
+getNotes();

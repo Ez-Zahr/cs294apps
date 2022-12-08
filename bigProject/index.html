@@ -12,6 +12,7 @@
   <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
 </head>
 
 <body>
@@ -59,7 +60,7 @@
 
     <div id="screen2" class="screen">
       <ul class="mdc-list mdc-list--two-line">
-        <li id="template" class="mdc-list-item">
+        <li class="mdc-list-item">
           <img src="" alt="">
           <span class="mdc-list-item__ripple"></span>
           <span class="mdc-list-item__text">
@@ -71,12 +72,50 @@
         <li role="separator" class="mdc-list-divider"></li>
       </ul>
     </div>
-    
+
     <div id="screen3" class="screen">
       <div id="map"></div>
     </div>
-    
-    <div id="screen4" class="screen"></div>
+
+    <div id="screen4" class="screen">
+      <div class="edit-note">
+        <label id="note-subject" class="mdc-text-field mdc-text-field--filled">
+          <span class="mdc-text-field__ripple"></span>
+          <span class="mdc-floating-label" id="my-label-id">Subject</span>
+          <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+          <span class="mdc-line-ripple"></span>
+        </label>
+
+        <label id="note-body"
+          class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--no-label">
+          <span class="mdc-text-field__ripple"></span>
+          <span class="mdc-text-field__resizer">
+            <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="Label"></textarea>
+          </span>
+          <span class="mdc-line-ripple"></span>
+        </label>
+
+        <div class="notes-btns">
+          <button id="save-btn" class="mdc-button mdc-button--raised">
+            <span class="mdc-button__label">Save Note</span>
+          </button>
+          <button id="delete-btn" class="mdc-button mdc-button--raised">
+            <span class="mdc-button__label">Delete Note</span>
+          </button>
+        </div>
+      </div>
+
+      <ul class="mdc-list mdc-list--two-line">
+        <li class="mdc-list-item">
+          <span class="mdc-list-item__ripple"></span>
+          <span class="mdc-list-item__text">
+            <span class="mdc-list-item__primary-text">Primary</span>
+            <span class="mdc-list-item__secondary-text">Secondary</span>
+          </span>
+        </li>
+        <li role="separator" class="mdc-list-divider"></li>
+      </ul>
+    </div>
   </main>
 
   <script

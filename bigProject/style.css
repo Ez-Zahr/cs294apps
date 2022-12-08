@@ -29,10 +29,6 @@ main {
 
 /* Screen 1 */
 
-#screen1 {
-  background-color: silver;
-}
-
 #screen1 img {
   width: 200px;
   height: 200px;
@@ -48,10 +44,6 @@ main {
 }
 
 /* Screen 2 */
-
-#screen2 {
-  background-color: #d2afed;
-}
 
 #screen2 img {
   width: 100px;
@@ -72,10 +64,6 @@ main {
 
 /* Screen 3 */
 
-#screen3 {
-  background-color: #afedc8;
-}
-
 #map {
   height: 400px;
   width: 800px;
@@ -85,5 +73,22 @@ main {
 /* Screen 4 */
 
 #screen4 {
-  background-color: #edafaf;
+  flex-direction: row;
+  justify-content: start;
+  padding: 100px;
+  gap: 300px;
+}
+
+.edit-note {
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.notes-btns button {
+  width: 50%;
 }
