@@ -1,0 +1,17 @@
+{
+  "name": "Big Project",
+  "short_name": "The Big Project",
+  "description": "The final project for CS 294 WAD Fall 22.",
+  "theme_color": "#2196f3",
+  "background_color": "#a5abb0",
+  "display": "standalone",
+  "scope": "/bigProject/",
+  "start_url": "/bigProject/",
+  "icons": [
+    {
+      "src": "./cat.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

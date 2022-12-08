@@ -1,0 +1,26 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+}
+
+#screen1 {
+  background-color: red;
+}
+
+#screen2 {
+  background-color: green;
+}
+
+#screen3 {
+  background-color: blue;
+}
+
+#screen4 {
+  background-color: yellow;
+}

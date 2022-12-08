@@ -1,0 +1,17 @@
+{
+  "name": "Map Trail",
+  "short_name": "Map Trail",
+  "description": "A map that shows your trail",
+  "theme_color": "#2196f3",
+  "background_color": "#a5abb0",
+  "display": "standalone",
+  "scope": "/mapTrail/",
+  "start_url": "/mapTrail/",
+  "icons": [
+    {
+      "src": "./cat.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
